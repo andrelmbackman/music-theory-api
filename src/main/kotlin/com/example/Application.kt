@@ -11,3 +11,6 @@ fun Application.module() {
     configureSerialization()
     configureRouting()
 }
+
+// TODO: "/generate" get: randomize, post: randomize within parameters
+// "/chords/key" get: return the chords of that key
