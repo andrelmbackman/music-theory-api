@@ -5,5 +5,9 @@ object Constants {
 
     val VALID_SCALES = setOf("major", "minor")
 
+    val SHARP_NOTES = setOf("C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B")
+
+    val FLAT_NOTES = setOf("C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B")
+
     val C_MAJOR_CHORDS = setOf("C", "Dm", "Em", "F", "G", "Am", "Bmb5")
 }
