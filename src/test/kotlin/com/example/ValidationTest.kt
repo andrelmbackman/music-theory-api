@@ -5,8 +5,6 @@ import com.example.Constants.SHARP_NOTESET
 import org.junit.Test
 import kotlin.test.*
 import com.example.NoteGenerator
-
-
 class ValidationTest {
     @Test
     fun testValidKeys() {
@@ -24,6 +22,9 @@ class ValidationTest {
         }
     }
 
+    /**
+     * Test if the correct set of notes is returned for the given key and scale.
+     */
     @Test
     fun testKeySignature() {
         val gen = NoteGenerator()
@@ -56,6 +57,24 @@ class ValidationTest {
         assert(gen.getNoteSet("D#", "minor") == SHARP_NOTESET)
     }
 
+    /**
+     * Test if the key is changed to use the appropriate noteset for least key signatures.
+     */
+    @Test
+    fun testSwitchKeyToLeastSignatures() {
+        val gen = NoteGenerator()
+        assert(gen.switchKeyToLeastSignatures("A#", "major") == "Bb")
+        assert(gen.switchKeyToLeastSignatures("D#", "major") == "Eb")
+        assert(gen.switchKeyToLeastSignatures("G#", "major") == "Ab")
+        assert(gen.switchKeyToLeastSignatures("C#", "major") == "Db")
+
+        assert(gen.switchKeyToLeastSignatures("Ab", "minor") == "G#")
+        assert(gen.switchKeyToLeastSignatures("Db", "minor") == "C#")
+        assert(gen.switchKeyToLeastSignatures("Gb", "minor") == "F#")
+        assert(gen.switchKeyToLeastSignatures("Fb", "minor") == "E")
+
+    }
+
     @Test
     fun testScales() {
         assertTrue(validateScale("major"))
@@ -66,3 +85,5 @@ class ValidationTest {
         assertFalse(validateScale("hypermegametamixolydian"))
     }
 }
+
+
