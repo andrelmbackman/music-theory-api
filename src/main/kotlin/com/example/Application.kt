@@ -1,6 +1,7 @@
 package com.example
 
 import com.example.plugins.*
+import com.example.*
 import io.ktor.server.application.*
 
 fun main(args: Array<String>) {
@@ -11,6 +12,3 @@ fun Application.module() {
     configureSerialization()
     configureRouting()
 }
-
-// TODO: "/generate" get: randomize, post: randomize within parameters
-// "/chords/key" get: return the chords of that key
