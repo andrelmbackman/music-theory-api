@@ -104,6 +104,33 @@ class NoteGeneratorTest {
         expectedNotes = listOf("Gb", "Ab", "Bb", "Cb", "Db", "Eb", "F")
         assertEquals(expectedNotes, notes)
 
+        /**
+         * Sharp scales
+         */
+        sharpNoteList.shiftToKey("G")
+        notes = sharpNoteList.getMajorNotes()
+        expectedNotes = listOf("G", "A", "B", "C", "D", "E", "F#")
+        assertEquals(expectedNotes, notes)
+
+        sharpNoteList.shiftToKey("D")
+        notes = sharpNoteList.getMajorNotes()
+        expectedNotes = listOf("D", "E", "F#", "G", "A", "B", "C#")
+        assertEquals(expectedNotes, notes)
+
+        sharpNoteList.shiftToKey("A")
+        notes = sharpNoteList.getMajorNotes()
+        expectedNotes = listOf("A", "B", "C#", "D", "E", "F#", "G#")
+        assertEquals(expectedNotes, notes)
+
+        sharpNoteList.shiftToKey("E")
+        notes = sharpNoteList.getMajorNotes()
+        expectedNotes = listOf("E", "F#", "G#", "A", "B", "C#", "D#")
+        assertEquals(expectedNotes, notes)
+
+        sharpNoteList.shiftToKey("B")
+        notes = sharpNoteList.getMajorNotes()
+        expectedNotes = listOf("B", "C#", "D#", "E", "F#", "G#", "A#")
+        assertEquals(expectedNotes, notes)
     }
 
     @Test
