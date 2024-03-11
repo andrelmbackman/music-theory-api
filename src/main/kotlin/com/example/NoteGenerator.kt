@@ -19,7 +19,7 @@ class CircularListNode<T>(val value: T) {
  * Circular linked list to represent and retrieve notes of a key/scale.
  */
 class CircularList<String> {
-    private var head: CircularListNode<String>? = null
+    var head: CircularListNode<String>? = null
 
     fun add(value: String) {
         val newNode = CircularListNode(value)
@@ -46,51 +46,6 @@ class CircularList<String> {
         head = current
     }
 
-    fun getNotes(): List<String> {
-        val notes = mutableListOf<String>()
-        var currentNode = head
-        if (currentNode != null) {
-            do {
-                currentNode?.value?.let {
-                    notes.add(it)
-                }
-                currentNode = currentNode?.next
-            } while (currentNode != head)
-        }
-        return notes
-    }
-
-    fun getMajorNotes(): List<String> {
-        val notes = mutableListOf<String>()
-        var index = 1
-
-        var currentNode = head
-        while (notes.size < MAJOR_TONES_INDEXES.size) {
-            if (index in MAJOR_TONES_INDEXES) {
-                currentNode?.value?.let { notes.add(it) }
-            }
-            currentNode = currentNode?.next
-            index++
-        }
-        return (notes)
-    }
-
-    fun getMinorNotes(): List<String> {
-        val notes = mutableListOf<String>()
-        var index = 1
-
-        var currentNode = head
-        while (notes.size < MINOR_TONES_INDEXES.size) {
-            if (index in MINOR_TONES_INDEXES)
-                currentNode?.value?.let {notes.add(it) }
-            currentNode = currentNode?.next
-            index++
-            if (index > 13)
-                break
-        }
-        return (notes)
-    }
-
     fun print() {
         var current = head
         if (current != null) {
@@ -108,13 +63,19 @@ class NoteGenerator {
      */
     fun getNoteSet(key: String, scale: String): Set<String> {
         return if (scale == "major") {
-            if (key in MAJOR_KEY_CONTAINS_SHARP)
+            if (key.equals("Gb", ignoreCase = true))
+                setOf("Gb", "G", "Ab", "A", "Bb", "Cb", "C", "Db", "D", "Eb", "E", "F")
+            else if (key.equals("C#", ignoreCase = true))
+                setOf("C#", "D", "D#", "E", "E#", "F#", "G", "G#", "A", "A#", "B", "B#")
+            else if (key in MAJOR_KEY_CONTAINS_SHARP)
                 SHARP_NOTESET
             else
                 FLAT_NOTESET
         }
         else {
-            if (key in MINOR_KEY_CONTAINS_SHARP)
+            if (key.equals("Eb", ignoreCase = true))
+                setOf("Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "Cb", "C", "Db", "D")
+            else if (key in MINOR_KEY_CONTAINS_SHARP)
                 SHARP_NOTESET
             else
                 FLAT_NOTESET
@@ -155,6 +116,22 @@ class NoteGenerator {
         }
     }
 
+    private fun getScaleNotes(noteSet: CircularList<String>, indexes: List<Int>): List<String> {
+        val notes = mutableListOf<String>()
+        val headNode = noteSet.head
+        var currentNode = noteSet.head
+        var i = 1
+        while (notes.size < indexes.size) {
+            if (i in indexes) {
+                currentNode?.value?.let { notes.add(it) }
+            }
+            currentNode = currentNode?.next
+            i++
+            if (currentNode == headNode)
+                break
+        }
+        return notes
+    }
     /**
      * Returns the notes of a given key and scale.
      */
@@ -166,9 +143,9 @@ class NoteGenerator {
         noteList.shiftToKey(newKey)
         noteList.print()
         return if (scale == "major")
-            noteList.getMajorNotes()
+            getScaleNotes(noteList, MAJOR_TONES_INDEXES)
         else
-            noteList.getMinorNotes()
+            getScaleNotes(noteList, MINOR_TONES_INDEXES)
     }
 
 }
