@@ -21,6 +21,7 @@ The API currently responds to the following GET requests:
 ### Example
 
 To retrieve the notes in the C# minor scale, you can make a GET request to:
+
 ``0.0.0.0:8080/scales/Csharp/minor/notes``
 
 
