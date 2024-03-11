@@ -1,7 +1,7 @@
 package com.example
 
 object Constants {
-    val VALID_KEYS = setOf("C", "C#", "Db", "D", "D#", "Eb", "E", "F", "F#", "Gb", "G", "G#", "Ab", "A", "A#", "Bb", "B")
+    val VALID_KEYS = setOf("C", "Cb", "C#", "Db", "D", "D#", "Eb", "E", "F", "F#", "Gb", "G", "G#", "Ab", "A", "A#", "Bb", "B")
     val VALID_SCALES = setOf("major", "minor")
 
     val SHARP_NOTESET = setOf("C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B")
@@ -18,7 +18,7 @@ object Constants {
 }
 
 //TODO: C# maj = Db, D# maj = Eb, G# maj = Ab, A# maj = Bb, (Cb = B, Fb = E, E# = F, B# = C), add note text if changed
-//
+// MAKE THE CIRCULAR STRUCTURE CHANGE THE PITCH NAME ENHARMONICALLY
 /**
  * CHORD TYPES:
  * major
