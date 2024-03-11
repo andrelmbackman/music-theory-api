@@ -3,6 +3,7 @@ package com.example
 import org.junit.Test
 import org.junit.Assert.assertEquals
 import com.example.NoteGenerator.*
+import com.example.*
 
 class NoteGeneratorTest {
     /**
@@ -16,14 +17,14 @@ class NoteGeneratorTest {
         assert(gen.getNoteSet("Eb", "major") == Constants.FLAT_NOTESET)
         assert(gen.getNoteSet("Ab", "major") == Constants.FLAT_NOTESET)
         assert(gen.getNoteSet("Db", "major") == Constants.FLAT_NOTESET)
-        assert(gen.getNoteSet("Gb", "major") == Constants.FLAT_NOTESET)
+        assert(gen.getNoteSet("Gb", "major") == setOf("Gb", "G", "Ab", "A", "Bb", "Cb", "C", "Db", "D", "Eb", "E", "F"))
 
         assert(gen.getNoteSet("D", "minor") == Constants.FLAT_NOTESET)
         assert(gen.getNoteSet("G", "minor") == Constants.FLAT_NOTESET)
         assert(gen.getNoteSet("C", "minor") == Constants.FLAT_NOTESET)
         assert(gen.getNoteSet("F", "minor") == Constants.FLAT_NOTESET)
         assert(gen.getNoteSet("Bb", "minor") == Constants.FLAT_NOTESET)
-        assert(gen.getNoteSet("Eb", "minor") == Constants.FLAT_NOTESET)
+        assert(gen.getNoteSet("Eb", "minor") == setOf("Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "Cb", "C", "Db", "D"))
 
         assert(gen.getNoteSet("G", "major") == Constants.SHARP_NOTESET)
         assert(gen.getNoteSet("D", "major") == Constants.SHARP_NOTESET)
@@ -63,92 +64,111 @@ class NoteGeneratorTest {
      */
     @Test
     fun testGetMajorNotes() {
-        val flatNoteSet = Constants.FLAT_NOTESET
-        val sharpNoteSet = Constants.SHARP_NOTESET
-        val flatNoteList = CircularList<String>()
-        val sharpNoteList = CircularList<String>()
-        flatNoteSet.forEach { flatNoteList.add(it) }
-        sharpNoteSet.forEach { sharpNoteList.add(it)}
 
-        var notes = flatNoteList.getMajorNotes()
+        val gen = NoteGenerator()
+
+        var notes = gen.getNotes("C", "major")
         var expectedNotes = listOf("C", "D", "E", "F", "G", "A", "B")
         assertEquals(expectedNotes, notes)
 
-        flatNoteList.shiftToKey("F")
-        notes = flatNoteList.getMajorNotes()
+        notes = gen.getNotes("F", "major")
         expectedNotes = listOf("F", "G", "A", "Bb", "C", "D", "E")
         assertEquals(expectedNotes, notes)
 
-        flatNoteList.shiftToKey("Bb")
-        notes = flatNoteList.getMajorNotes()
+        notes = gen.getNotes("Bb", "major")
         expectedNotes = listOf("Bb", "C", "D", "Eb", "F", "G", "A")
         assertEquals(expectedNotes, notes)
 
-        flatNoteList.shiftToKey("Eb")
-        notes = flatNoteList.getMajorNotes()
+        notes = gen.getNotes("Eb", "major")
         expectedNotes = listOf("Eb", "F", "G", "Ab", "Bb", "C", "D")
         assertEquals(expectedNotes, notes)
 
-        flatNoteList.shiftToKey("Ab")
-        notes = flatNoteList.getMajorNotes()
+        notes = gen.getNotes("Ab", "major")
         expectedNotes = listOf("Ab", "Bb", "C", "Db", "Eb", "F", "G")
         assertEquals(expectedNotes, notes)
 
-        flatNoteList.shiftToKey("Db")
-        notes = flatNoteList.getMajorNotes()
+        notes = gen.getNotes("Db", "major")
         expectedNotes = listOf("Db", "Eb", "F", "Gb", "Ab", "Bb", "C")
         assertEquals(expectedNotes, notes)
 
-        flatNoteList.shiftToKey("Gb")
-        notes = flatNoteList.getMajorNotes()
+        notes = gen.getNotes("Gb", "major")
         expectedNotes = listOf("Gb", "Ab", "Bb", "Cb", "Db", "Eb", "F")
         assertEquals(expectedNotes, notes)
 
         /**
          * Sharp scales
          */
-        sharpNoteList.shiftToKey("G")
-        notes = sharpNoteList.getMajorNotes()
+        notes = gen.getNotes("G", "major")
         expectedNotes = listOf("G", "A", "B", "C", "D", "E", "F#")
         assertEquals(expectedNotes, notes)
 
-        sharpNoteList.shiftToKey("D")
-        notes = sharpNoteList.getMajorNotes()
+        notes = gen.getNotes("D", "major")
         expectedNotes = listOf("D", "E", "F#", "G", "A", "B", "C#")
         assertEquals(expectedNotes, notes)
 
-        sharpNoteList.shiftToKey("A")
-        notes = sharpNoteList.getMajorNotes()
+        notes = gen.getNotes("A", "major")
         expectedNotes = listOf("A", "B", "C#", "D", "E", "F#", "G#")
         assertEquals(expectedNotes, notes)
 
-        sharpNoteList.shiftToKey("E")
-        notes = sharpNoteList.getMajorNotes()
+        notes = gen.getNotes("E", "major")
         expectedNotes = listOf("E", "F#", "G#", "A", "B", "C#", "D#")
         assertEquals(expectedNotes, notes)
 
-        sharpNoteList.shiftToKey("B")
-        notes = sharpNoteList.getMajorNotes()
+        notes = gen.getNotes("B", "major")
         expectedNotes = listOf("B", "C#", "D#", "E", "F#", "G#", "A#")
         assertEquals(expectedNotes, notes)
     }
 
     @Test
     fun testGetMinorNotes() {
-        val flatNoteSet = Constants.FLAT_NOTESET
-        val sharpNoteSet = Constants.SHARP_NOTESET
-        val flatNoteList = CircularList<String>()
-        val sharpNoteList = CircularList<String>()
-        flatNoteSet.forEach { flatNoteList.add(it) }
-        sharpNoteSet.forEach { sharpNoteList.add(it)}
+        val gen = NoteGenerator()
 
+        var notes = gen.getNotes("C", "minor")
         var expectedNotes = listOf("C", "D", "Eb", "F", "G", "Ab", "Bb")
-        var notes = flatNoteList.getMinorNotes()
         assertEquals(expectedNotes, notes)
 
-        flatNoteList.shiftToKey("F")
-        notes = flatNoteList.getMinorNotes()
+        notes = gen.getNotes("D", "minor")
+        expectedNotes = listOf("D", "E", "F", "G", "A", "Bb", "C")
+        assertEquals(expectedNotes, notes)
+
+        notes = gen.getNotes("G", "minor")
+        expectedNotes = listOf("G", "A", "Bb", "C", "D", "Eb", "F")
+        assertEquals(expectedNotes, notes)
+
+        notes = gen.getNotes("F", "minor")
         expectedNotes = listOf("F", "G", "Ab", "Bb", "C", "Db", "Eb")
+        assertEquals(expectedNotes, notes)
+
+        notes = gen.getNotes("Bb", "minor")
+        expectedNotes = listOf("Bb", "C", "Db", "Eb", "F", "Gb", "Ab")
+        assertEquals(expectedNotes, notes)
+
+        notes = gen.getNotes("Eb", "minor")
+        expectedNotes = listOf("Eb", "F", "Gb", "Ab", "Bb", "Cb", "Db")
+        assertEquals(expectedNotes, notes)
+
+        notes = gen.getNotes("A", "minor")
+        expectedNotes = listOf("A", "B", "C", "D", "E", "F", "G")
+        assertEquals(expectedNotes, notes)
+
+        notes = gen.getNotes("E", "minor")
+        expectedNotes = listOf("E", "F#", "G", "A", "B", "C", "D")
+        assertEquals(expectedNotes, notes)
+
+        notes = gen.getNotes("B", "minor")
+        expectedNotes = listOf("B", "C#", "D", "E", "F#", "G", "A")
+        assertEquals(expectedNotes, notes)
+
+        notes = gen.getNotes("F#", "minor")
+        expectedNotes = listOf("F#", "G#", "A", "B", "C#", "D", "E")
+        assertEquals(expectedNotes, notes)
+
+        notes = gen.getNotes("C#", "minor")
+        expectedNotes = listOf("C#", "D#", "E", "F#", "G#", "A", "B")
+        assertEquals(expectedNotes, notes)
+
+        notes = gen.getNotes("G#", "minor")
+        expectedNotes = listOf("G#", "A#", "B", "C#", "D#", "E", "F#")
         assertEquals(expectedNotes, notes)
     }
 }
