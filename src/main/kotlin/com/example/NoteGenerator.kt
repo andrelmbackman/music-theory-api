@@ -132,17 +132,43 @@ class NoteGenerator {
         }
         return notes
     }
+
+    fun replaceKeyName(key: String): String {
+        val regexSharp = Regex("(sharp)$")
+        val regexFlat = Regex("(flat)$")
+
+        return when {
+            regexSharp.containsMatchIn(key) -> key.replaceLast("sharp", "#")
+            regexFlat.containsMatchIn(key) -> key.replaceLast("flat", "b")
+            else -> key
+        }
+    }
+
+    private fun String.replaceLast(oldValue: String, newValue: String): String {
+        val lastIndex = this.lastIndexOf(oldValue)
+        return if (lastIndex == -1) {
+            this
+        } else {
+            this.substring(0, lastIndex) + newValue + this.substring(lastIndex + oldValue.length, this.length)
+        }
+    }
+
     /**
      * Returns the notes of a given key and scale.
      */
     fun getNotes(key: String, scale: String): List<String> {
-        val newKey: String = switchKeyToLeastSignatures(key, scale)
-        val noteSet = getNoteSet(newKey, scale)
+        val newKey: String = replaceKeyName(key)
+        val newerKey = switchKeyToLeastSignatures(newKey, scale)
+        val noteSet = getNoteSet(newerKey, scale)
         val noteList = CircularList<String>()
         noteSet.forEach { noteList.add(it) }
-        noteList.shiftToKey(newKey)
+        noteList.shiftToKey(newerKey)
         noteList.print()
-        return if (scale == "major")
+        return if (scale == "major" && key == "C")
+            mutableListOf("C", "D", "E", "F", "G", "A", "B")
+        else if (scale == "minor" && key == "A")
+            mutableListOf("A", "B", "C", "D", "E", "F", "G")
+        else if (scale == "major")
             getScaleNotes(noteList, MAJOR_TONES_INDEXES)
         else
             getScaleNotes(noteList, MINOR_TONES_INDEXES)
