@@ -12,7 +12,8 @@ The API currently responds to the following GET requests:
 
   Retrieves a list of notes in the specified scale for the given key.
 
-  - `key`: A musical key, represented as any of the following:
+  - `key` - A musical key, represented as any of the following:
+
     <table>
       <tr>
         <th>Key</th> <td>C</td> <td>C#/Db</td> <td>D</td> <td>Eb</td> <td>E</td> <td>F</td> <td>F#/Gb</td> <td>G</td> <td>G#/Ab</td> <td>A</td> <td>A#/Bb</td> <td>B</td>
@@ -21,9 +22,11 @@ The API currently responds to the following GET requests:
         <th>Endpoint name</th> <td>C</td> <td>Csharp/Dflat</td> <td>D</td> <td>Eflat</td> <td>E</td> <td>F</td> <td>Fsharp/Gflat</td> <td>G</td> <td>Gsharp/Aflat</td> <td>A</td> <td>Bflat</td> <td>B</td>
       </tr>
     </table>
-  - `scale_type`: The type of scale:
+  - `scale_type` - The type of scale:
+
     <table><tr> <td>major</td> <td>minor</td> </tr></table>
-  - Certain key and scale combinations will be altered to return the scale with the least key signatures. For example: Db minor will return C# minor.
+  - Certain key and scale combinations will be altered to return the scale with the least key signatures.
+    - Example: `Db minor` becomes `C# minor`.
  
   
 
