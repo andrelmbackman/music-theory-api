@@ -67,6 +67,8 @@ class NoteGenerator {
                 setOf("Gb", "G", "Ab", "A", "Bb", "Cb", "C", "Db", "D", "Eb", "E", "F")
             else if (key.equals("C#", ignoreCase = true))
                 setOf("C#", "D", "D#", "E", "E#", "F#", "G", "G#", "A", "A#", "B", "B#")
+            else if (key.equals("F#", ignoreCase = true))
+                setOf("F#", "G", "G#", "A", "A#", "B", "B#", "C#", "D", "D#", "E", "E#")
             else if (key in MAJOR_KEY_CONTAINS_SHARP)
                 SHARP_NOTESET
             else
