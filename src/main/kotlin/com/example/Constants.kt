@@ -1,7 +1,7 @@
 package com.example
 
 object Constants {
-    val VALID_KEYS = setOf("C", "Cb", "C#", "Db", "D", "D#", "Eb", "E", "F", "F#", "Gb", "G", "G#", "Ab", "A", "A#", "Bb", "B")
+    val VALID_KEYS = setOf("C", "Cb", "C#", "Db", "D", "D#", "Eb", "E", "E#", "Fb", "F", "F#", "Gb", "G", "G#", "Ab", "A", "A#", "Bb", "B", "B#")
     val VALID_SCALES = setOf("major", "minor")
 
     val SHARP_NOTESET = setOf("C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B")
