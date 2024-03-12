@@ -31,7 +31,7 @@ class NoteGeneratorTest {
         assert(gen.getNoteSet("A", "major") == Constants.SHARP_NOTESET)
         assert(gen.getNoteSet("E", "major") == Constants.SHARP_NOTESET)
         assert(gen.getNoteSet("B", "major") == Constants.SHARP_NOTESET)
-        assert(gen.getNoteSet("F#", "major") == Constants.SHARP_NOTESET)
+        assert(gen.getNoteSet("F#", "major") == setOf("F#", "G", "G#", "A", "A#", "B", "B#", "C#", "D", "D#", "E", "E#"))
 
         assert(gen.getNoteSet("E", "minor") == Constants.SHARP_NOTESET)
         assert(gen.getNoteSet("B", "minor") == Constants.SHARP_NOTESET)
